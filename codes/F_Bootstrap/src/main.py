@@ -1,9 +1,11 @@
 from data.dataCreator import DataCreator
 import sys
+from dotenv import load_dotenv
+import os
 
-sys.path.append(
-    "/Users/jeongjaeyeong/Desktop/School/2022-1/다변량통계 및 데이터 마이닝/HW/dev/MultiVariableStatNDataMining/codes/hw3_F_Bootstrap/src"
-)
+load_dotenv(verbose=True)
+SRC_PATH = os.getenv('SRC_PATH')
+sys.path.append(SRC_PATH)
 from controls import t2_control_limit as t2
 from parameter import ALPHA,args
 

@@ -3,10 +3,13 @@ import numpy as np
 from numpy.random import gamma
 from numpy.random import multivariate_normal
 import sys
+import os
+from dotenv import load_dotenv
 
-sys.path.append(
-    "/Users/jeongjaeyeong/Desktop/School/2022-1/다변량통계 및 데이터 마이닝/HW/dev/MultiVariableStatNDataMining/codes/hw3_F_Bootstrap/src/data"
-)
+load_dotenv()
+
+DATA_CONFIG_PATH = os.getenv("DATA_CONFIG_PATH")
+sys.path.append(DATA_CONFIG_PATH)
 from dataConfig import (
     LOG_NORMAL_DISTRIBUTION_VALUES,
     MV_GAMMA_DISTRIBUTION_VALUES,
@@ -14,7 +17,8 @@ from dataConfig import (
     T_VALUES,
 )
 
-from t_distribution import multivariate_t_gen,multivariate_t
+from t_distribution import multivariate_t_gen, multivariate_t
+
 
 class DataCreator(object):
     def __init__(self):
@@ -33,7 +37,7 @@ class DataCreator(object):
 
         return data_multi_gamma
 
-    def generate_log_normal(self,mode=None):
+    def generate_log_normal(self, mode=None):
         mean = LOG_NORMAL_DISTRIBUTION_VALUES["mean"]
         cov = LOG_NORMAL_DISTRIBUTION_VALUES["cov"]
         data_multi_normal = multivariate_normal(
@@ -47,8 +51,8 @@ class DataCreator(object):
         return data_multi_log_normal
 
     def generate_t(self):
-        df = T_VALUES['df']
-        mean = T_VALUES['mean']
+        df = T_VALUES["df"]
+        mean = T_VALUES["mean"]
 
         rng = np.random.RandomState(4)
         tmp = rng.random((500, 5))
@@ -56,8 +60,6 @@ class DataCreator(object):
         dist1 = multivariate_t(mean, shape, df=df, seed=2)
 
         return dist1.rvs(size=500)
-
-
 
 
 if __name__ == "__main__":
