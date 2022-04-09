@@ -9,15 +9,17 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DATA_CONFIG_PATH = os.getenv("DATA_CONFIG_PATH")
+
 sys.path.append(DATA_CONFIG_PATH)
 from dataConfig import (
     LOG_NORMAL_DISTRIBUTION_VALUES,
     MV_GAMMA_DISTRIBUTION_VALUES,
     NUM_SAMPLE,
     T_VALUES,
+anomaly
 )
 
-from t_distribution import multivariate_t_gen, multivariate_t
+from t_distribution import multivariate_t
 
 
 class DataCreator(object):
@@ -61,9 +63,15 @@ class DataCreator(object):
 
         return dist1.rvs(size=500)
 
+    # It is the concatenation of normal distribution and anomaly generated to study problem1
+    def generate_problem1_data(self):
+        normal = self.generate_log_normal(mode="raw")
+        result = np.concatenate((normal,anomaly),axis=0)
+        return result
+
+
 
 if __name__ == "__main__":
     dc = DataCreator()
-    print(dc.generate_gamma())
     print(dc.generate_log_normal())
-    print(dc.generate_t())
+    print(dc.generate_problem1_data().shape)

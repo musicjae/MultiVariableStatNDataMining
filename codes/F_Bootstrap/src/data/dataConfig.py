@@ -1,3 +1,5 @@
+import numpy as np
+
 NUM_SAMPLE = 500
 
 MV_GAMMA_DISTRIBUTION_VALUES = {
@@ -16,3 +18,5 @@ LOG_NORMAL_DISTRIBUTION_VALUES = {
     ],
 }
 T_VALUES = {"df": 1, "loc": [1.0, 2.0, 3.0, 4.0, 5.0], "mean": [0, 0, 0, 0, 0]}
+
+anomaly = np.random.rand(50).reshape(10,5) * 2
