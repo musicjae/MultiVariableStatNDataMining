@@ -11,7 +11,7 @@ sys.path.append(SRC_PATH)
 from controls import t2_control_limit as t2
 from controls import average, threshold, rank_sum
 from parameter import ALPHA, args
-
+from hypothesis_test import testing
 
 def problem1(mode=None):
     data_creator = DataCreator()
@@ -46,11 +46,19 @@ def problem2(mode=None):
     else:
         return "Enter at least one of gamma, log_normal, t"
 
+def testing_problem():
+    data_creator = DataCreator()
+    data = data_creator.generate_problem1_data()
+
+    result = testing.test_hypothesis(data)
+
+    return result
+
 
 if __name__ == "__main__":
     if args.problem == 1:
         print(problem1())
-    else: # problem 2
+    elif args.problem == 2: # problem 2
         if args.select_dist == "gamma":
             problem2(mode="gamma")
         elif args.select_dist == "log_normal":
@@ -59,4 +67,9 @@ if __name__ == "__main__":
             problem2(mode="t")
         else:
             print("다시 입력하세요")
+    elif args.problem == 3:
+        result = testing_problem()
+        print(result)
+    else:
+        print("you must enter at least one of 1,2,3")
 
