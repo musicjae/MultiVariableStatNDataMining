@@ -19,7 +19,8 @@ def evaluate_threshold(data: np.array, alpha=0.05) -> np.array:
     t2_values = np.array(t2_values)
 
     num_variables = data.shape[1]
-    threshold = run_bootstrap(t2_values, alpha)
+    normal_t2values = t2_values[:500]
+    threshold = run_bootstrap(normal_t2values, alpha)
 
     di_chart = []
     for column in range(num_variables):
